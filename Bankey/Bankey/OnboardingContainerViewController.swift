@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol OnboardingContainerViewControllerDelegate: AnyObject {
+    func didFinishOnboarding()
+}
+
 class OnboardingContainerViewController: UIViewController {
     let pageViewController: UIPageViewController
     var pages = [UIViewController]()
@@ -16,6 +20,8 @@ class OnboardingContainerViewController: UIViewController {
         }
     }
     let closeButton = UIButton(type: .system)
+   
+    weak var delegate: OnboardingContainerViewControllerDelegate?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.pageViewController = UIPageViewController(
@@ -90,7 +96,12 @@ private extension OnboardingContainerViewController {
     
     @objc
     func closeTapped() {
-        
+        delegate?.didFinishOnboarding()
+    }
+    
+    @objc
+    func doneTapped() {
+        delegate?.didFinishOnboarding()
     }
 }
 
