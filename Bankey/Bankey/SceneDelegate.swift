@@ -15,7 +15,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     let loginViewController = LoginViewController()
     let onboardingContainerViewController = OnboardingContainerViewController()
-    let dummyViewController = DummyViewController()
     let mainViewController = MainViewController()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -27,14 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         loginViewController.delegate = self
         onboardingContainerViewController.delegate = self
+      
+        displayLogin()
         
-        let vc = mainViewController
-        vc.setStatusBar()
-       
-        UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().backgroundColor = appColor
-        
-        self.window?.rootViewController = vc
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -68,17 +62,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension SceneDelegate: LoginViewControllerDelegate {
     func didLogIn() {
-        if LocalState.hasOnboarded {
-            setRootViewController(mainViewController)
-        } else {
-            setRootViewController(onboardingContainerViewController)
-        }
+        displayNextScreen()
     }
 }
 
 extension SceneDelegate: OnboardingContainerViewControllerDelegate {
     func didFinishOnboarding() {
         LocalState.hasOnboarded = true
+        prepMainView()
         setRootViewController(mainViewController)
     }
 }
@@ -106,5 +97,24 @@ private extension SceneDelegate {
             animations: nil,
             completion: nil
         )
+    }
+    
+    func displayLogin() {
+        setRootViewController(loginViewController)
+    }
+    
+    func prepMainView() {
+        mainViewController.setStatusBar()
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().backgroundColor = appColor
+    }
+    
+    func displayNextScreen() {
+        if LocalState.hasOnboarded {
+            prepMainView()
+            setRootViewController(mainViewController)
+        } else {
+            setRootViewController(onboardingContainerViewController)
+        }
     }
 }
