@@ -31,6 +31,8 @@
 		348ADA082C2A29550010A316 /* ShakeyBellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA072C2A29550010A316 /* ShakeyBellView.swift */; };
 		348ADA0D2C2CBDEB0010A316 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA0C2C2CBDEB0010A316 /* Date+Utils.swift */; };
 		348ADA0F2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA0E2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift */; };
+		348ADA132C2CD1FC0010A316 /* ProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA122C2CD1FC0010A316 /* ProfileTests.swift */; };
+		348ADA172C2CD4CB0010A316 /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA162C2CD4CB0010A316 /* AccountTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		348ADA0B2C2B7D070010A316 /* Account-Challenge.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Account-Challenge.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		348ADA0C2C2CBDEB0010A316 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
 		348ADA0E2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSummaryViewController+Networking.swift"; sourceTree = "<group>"; };
+		348ADA122C2CD1FC0010A316 /* ProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTests.swift; sourceTree = "<group>"; };
+		348ADA162C2CD4CB0010A316 /* AccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,8 +207,9 @@
 		348AD9F72C2384150010A316 /* BankeyUnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				348ADA002C2385350010A316 /* CurrencyFormatterTests.swift */,
 				348AD9FF2C2385350010A316 /* BankeyUnitTests-Bridging-Header.h */,
+				348ADA112C2CD1E10010A316 /* AccountSummary */,
+				348ADA102C2CD1D20010A316 /* Utils */,
 			);
 			path = BankeyUnitTests;
 			sourceTree = "<group>";
@@ -224,6 +229,23 @@
 				348ADA0B2C2B7D070010A316 /* Account-Challenge.playground */,
 			);
 			name = Playgrounds;
+			sourceTree = "<group>";
+		};
+		348ADA102C2CD1D20010A316 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				348ADA002C2385350010A316 /* CurrencyFormatterTests.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		348ADA112C2CD1E10010A316 /* AccountSummary */ = {
+			isa = PBXGroup;
+			children = (
+				348ADA122C2CD1FC0010A316 /* ProfileTests.swift */,
+				348ADA162C2CD4CB0010A316 /* AccountTests.swift */,
+			);
+			path = AccountSummary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,6 +378,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				348ADA012C2385350010A316 /* CurrencyFormatterTests.swift in Sources */,
+				348ADA172C2CD4CB0010A316 /* AccountTests.swift in Sources */,
+				348ADA132C2CD1FC0010A316 /* ProfileTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
