@@ -8,11 +8,6 @@
 import UIKit
 
 class AccountSummaryViewController: UIViewController {
-//    struct Profile {
-//        let firstName: String
-//        let lastName: String
-//    }
-   
     // Request Models
     var profile: Profile?
     var accounts: [Account] = []
@@ -37,16 +32,15 @@ class AccountSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        setupNavigationBar()
     }
 }
 
 private extension AccountSummaryViewController {
     func setup() {
+        setupNavigationBar()
         setupTableView()
         setupTableHeaderView()
-        // fetchAccounts()
-        fetchDataAndLoadViews()
+        fetchData()
     }
     
     func setupNavigationBar() {
@@ -109,33 +103,37 @@ private extension AccountSummaryViewController {
         }
     }
     
-    func fetchDataAndLoadViews() {
+    func fetchData() {
+        let group = DispatchGroup()
+       
+        group.enter()
         fetchProfile(forUserId: "1") { result in
             switch result {
             case .success(let profile):
                 self.profile = profile
                 self.configureTableHeaderView(with: profile)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
                 
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            group.leave()
         }
-    
+   
+        group.enter()
         fetchAccounts(forUserId: "1") { result in
             switch result {
             case .success(let accounts):
                 self.accounts = accounts
                 self.configureTableCells(with: accounts)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
                 
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            self.tableView.reloadData()
         }
     }
     
