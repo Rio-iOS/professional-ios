@@ -29,6 +29,8 @@
 		348ADA032C24E47C0010A316 /* NSNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA022C24E47C0010A316 /* NSNotificationName.swift */; };
 		348ADA052C24E7A80010A316 /* UITextField+SecureToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA042C24E7A80010A316 /* UITextField+SecureToggle.swift */; };
 		348ADA082C2A29550010A316 /* ShakeyBellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA072C2A29550010A316 /* ShakeyBellView.swift */; };
+		348ADA0D2C2CBDEB0010A316 /* Date+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA0C2C2CBDEB0010A316 /* Date+Utils.swift */; };
+		348ADA0F2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA0E2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,10 @@
 		348ADA022C24E47C0010A316 /* NSNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotificationName.swift; sourceTree = "<group>"; };
 		348ADA042C24E7A80010A316 /* UITextField+SecureToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+SecureToggle.swift"; sourceTree = "<group>"; };
 		348ADA072C2A29550010A316 /* ShakeyBellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeyBellView.swift; sourceTree = "<group>"; };
+		348ADA0A2C2A3ED50010A316 /* Profile-Networking.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Profile-Networking.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		348ADA0B2C2B7D070010A316 /* Account-Challenge.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Account-Challenge.playground"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		348ADA0C2C2CBDEB0010A316 /* Date+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Utils.swift"; sourceTree = "<group>"; };
+		348ADA0E2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSummaryViewController+Networking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,7 @@
 				348AD9322C1D46E30010A316 /* Login */,
 				348AD9352C1D7A190010A316 /* Onboarding */,
 				348ADA062C2A291F0010A316 /* Components */,
+				348ADA092C2A3EAA0010A316 /* Playgrounds */,
 			);
 			path = Bankey;
 			sourceTree = "<group>";
@@ -160,6 +167,7 @@
 				348AD9F02C224FB60010A316 /* CurrencyFormatter.swift */,
 				348ADA022C24E47C0010A316 /* NSNotificationName.swift */,
 				348ADA042C24E7A80010A316 /* UITextField+SecureToggle.swift */,
+				348ADA0C2C2CBDEB0010A316 /* Date+Utils.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -170,6 +178,7 @@
 				348AD9EA2C2236D70010A316 /* Header */,
 				348AD9EB2C2236F60010A316 /* Cells */,
 				348AD9E42C1EBDDB0010A316 /* AccountSummaryViewController.swift */,
+				348ADA0E2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift */,
 			);
 			name = AccountSummary;
 			sourceTree = "<group>";
@@ -206,6 +215,15 @@
 				348ADA072C2A29550010A316 /* ShakeyBellView.swift */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		348ADA092C2A3EAA0010A316 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				348ADA0A2C2A3ED50010A316 /* Profile-Networking.playground */,
+				348ADA0B2C2B7D070010A316 /* Account-Challenge.playground */,
+			);
+			name = Playgrounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				348AD9E72C1EC5640010A316 /* AccountSummaryHeaderView.swift in Sources */,
+				348ADA0F2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift in Sources */,
 				348AD9ED2C22371C0010A316 /* AccountSummaryCell.swift in Sources */,
 				348ADA082C2A29550010A316 /* ShakeyBellView.swift in Sources */,
 				348AD93B2C1DC1E40010A316 /* DummyViewController.swift in Sources */,
@@ -328,6 +347,7 @@
 				348AD9202C1BB13D0010A316 /* SceneDelegate.swift in Sources */,
 				348AD93E2C1DD31E0010A316 /* LocalState.swift in Sources */,
 				348AD9A22C1DFAB30010A316 /* MainViewController.swift in Sources */,
+				348ADA0D2C2CBDEB0010A316 /* Date+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
