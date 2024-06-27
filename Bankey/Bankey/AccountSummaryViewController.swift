@@ -28,6 +28,7 @@ class AccountSummaryViewController: UIViewController {
     
     private var headerView = AccountSummaryHeaderView(frame: .zero)
     private var tableView = UITableView()
+    private let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,7 @@ private extension AccountSummaryViewController {
         setupNavigationBar()
         setupTableView()
         setupTableHeaderView()
+        setupRefreshControl()
         fetchData()
     }
     
@@ -79,8 +81,18 @@ private extension AccountSummaryViewController {
         tableView.tableHeaderView = header
     }
     
+    func setupRefreshControl() {
+        refreshControl.tintColor = appColor
+        refreshControl.addTarget(self, action: #selector(refreshContent), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+    
     @objc func logoutTapped(sender: UIButton) {
         NotificationCenter.default.post(name: .logout, object: nil)
+    }
+    
+    @objc func refreshContent() {
+        fetchData()
     }
     
     func configureTableHeaderView(with profile: Profile) {
@@ -105,9 +117,10 @@ private extension AccountSummaryViewController {
     
     func fetchData() {
         let group = DispatchGroup()
-       
+      
+        let userId = String(Int.random(in: 1..<4))
         group.enter()
-        fetchProfile(forUserId: "1") { result in
+        fetchProfile(forUserId: userId) { result in
             switch result {
             case .success(let profile):
                 self.profile = profile
@@ -134,6 +147,7 @@ private extension AccountSummaryViewController {
         
         group.notify(queue: .main) {
             self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
     
