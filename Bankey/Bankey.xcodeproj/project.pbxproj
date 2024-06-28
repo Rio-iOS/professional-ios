@@ -33,6 +33,8 @@
 		348ADA0F2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA0E2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift */; };
 		348ADA132C2CD1FC0010A316 /* ProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA122C2CD1FC0010A316 /* ProfileTests.swift */; };
 		348ADA172C2CD4CB0010A316 /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA162C2CD4CB0010A316 /* AccountTests.swift */; };
+		348ADA192C2E17870010A316 /* SkeletonLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA182C2E17870010A316 /* SkeletonLoadable.swift */; };
+		348ADA1B2C2E1A240010A316 /* SkeletonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA1A2C2E1A240010A316 /* SkeletonCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		348ADA0E2C2CBFEB0010A316 /* AccountSummaryViewController+Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSummaryViewController+Networking.swift"; sourceTree = "<group>"; };
 		348ADA122C2CD1FC0010A316 /* ProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTests.swift; sourceTree = "<group>"; };
 		348ADA162C2CD4CB0010A316 /* AccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
+		348ADA182C2E17870010A316 /* SkeletonLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonLoadable.swift; sourceTree = "<group>"; };
+		348ADA1A2C2E1A240010A316 /* SkeletonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +204,8 @@
 			isa = PBXGroup;
 			children = (
 				348AD9EC2C22371C0010A316 /* AccountSummaryCell.swift */,
+				348ADA182C2E17870010A316 /* SkeletonLoadable.swift */,
+				348ADA1A2C2E1A240010A316 /* SkeletonCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -364,7 +370,9 @@
 				348AD9342C1D47320010A316 /* LoginView.swift in Sources */,
 				348AD9372C1D7A650010A316 /* OnboardingContainerViewController.swift in Sources */,
 				348ADA052C24E7A80010A316 /* UITextField+SecureToggle.swift in Sources */,
+				348ADA192C2E17870010A316 /* SkeletonLoadable.swift in Sources */,
 				348AD9A02C1DF9150010A316 /* UIViewController+Util.swift in Sources */,
+				348ADA1B2C2E1A240010A316 /* SkeletonCell.swift in Sources */,
 				348ADA032C24E47C0010A316 /* NSNotificationName.swift in Sources */,
 				348AD9202C1BB13D0010A316 /* SceneDelegate.swift in Sources */,
 				348AD93E2C1DD31E0010A316 /* LocalState.swift in Sources */,
