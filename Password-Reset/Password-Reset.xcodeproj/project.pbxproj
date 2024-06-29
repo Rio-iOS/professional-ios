@@ -12,6 +12,7 @@
 		348ADA342C2FFEA10010A316 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA332C2FFEA10010A316 /* ViewController.swift */; };
 		348ADA392C2FFEA30010A316 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 348ADA382C2FFEA30010A316 /* Assets.xcassets */; };
 		348ADA3C2C2FFEA30010A316 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 348ADA3B2C2FFEA30010A316 /* Base */; };
+		348ADA472C30036A0010A316 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA462C30036A0010A316 /* PasswordTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		348ADA382C2FFEA30010A316 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		348ADA3B2C2FFEA30010A316 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		348ADA3D2C2FFEA30010A316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		348ADA462C30036A0010A316 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		348ADA2E2C2FFEA10010A316 /* Password-Reset */ = {
 			isa = PBXGroup;
 			children = (
+				348ADA452C3003540010A316 /* Password */,
 				348ADA442C2FFF600010A316 /* Files */,
 				348ADA2F2C2FFEA10010A316 /* AppDelegate.swift */,
 				348ADA312C2FFEA10010A316 /* SceneDelegate.swift */,
@@ -70,6 +73,14 @@
 				348ADA3D2C2FFEA30010A316 /* Info.plist */,
 			);
 			name = Files;
+			sourceTree = "<group>";
+		};
+		348ADA452C3003540010A316 /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				348ADA462C30036A0010A316 /* PasswordTextField.swift */,
+			);
+			name = Password;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 			files = (
 				348ADA342C2FFEA10010A316 /* ViewController.swift in Sources */,
 				348ADA302C2FFEA10010A316 /* AppDelegate.swift in Sources */,
+				348ADA472C30036A0010A316 /* PasswordTextField.swift in Sources */,
 				348ADA322C2FFEA10010A316 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
