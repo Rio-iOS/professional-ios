@@ -9,16 +9,11 @@ import UIKit
 
 class AccountSummaryViewController: UIViewController {
     // Request Models
-    var profile: Profile?
-    var accounts: [Account] = []
+    private var profile: Profile?
+    private var accounts: [Account] = []
     
     // View Models
-    var headerViewModel = AccountSummaryHeaderView.ViewModel(
-        welcomeMessage: "Welcome",
-        name: "",
-        date: Date()
-    )
-    var accountCellViewModels: [AccountSummaryCell.ViewModel] = []
+    private var accountCellViewModels: [AccountSummaryCell.ViewModel] = []
  
     private lazy var logoutBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
@@ -31,6 +26,15 @@ class AccountSummaryViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
    
     private var isLoaded = false
+    
+    var profileManager: ProfileManagable = ProfileManager()
+    var accountsManager: AccountsManagable = AccountsManager()
+    
+    lazy var errorAlert: UIAlertController = {
+        let alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        return alert
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,16 +140,15 @@ private extension AccountSummaryViewController {
     }
     
     func showErrorAlert(title: String, message: String) {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true)
+        guard !(self.presentedViewController is UIAlertController) else { return }
+        
+        errorAlert.title = title
+        errorAlert.message = message
+        
+        self.present(self.errorAlert, animated: true)
     }
     
-    func displayError(error: NetworkError) {
+    func titleAndMessage(error: NetworkError) -> (String, String) {
         let title: String
         let message: String
         switch error {
@@ -156,17 +159,19 @@ private extension AccountSummaryViewController {
             title = "Decoding Error"
             message = "We could not process your request, Please try again."
         }
+        return (title, message)
+    }
+    
+    func displayError(error: NetworkError) {
+        let (title, message) = titleAndMessage(error: error)
         DispatchQueue.main.async {
             self.showErrorAlert(title: title, message: message)
         }
     }
-    
-    func fetchData() {
-        let group = DispatchGroup()
-      
-        let userId = String(Int.random(in: 1..<4))
+   
+    func fetchProfile(group: DispatchGroup, userId: String) {
         group.enter()
-        fetchProfile(forUserId: userId) { result in
+        profileManager.fetchProfile(forUserId: userId) { result in
             switch result {
             case .success(let profile):
                 self.profile = profile
@@ -176,9 +181,22 @@ private extension AccountSummaryViewController {
             }
             group.leave()
         }
-   
+    }
+    
+    func reloadView() {
+        self.refreshControl.endRefreshing()
+        
+        guard let profile = self.profile else { return }
+        
+        self.isLoaded = true
+        self.configureTableHeaderView(with: profile)
+        self.configureTableCells(with: self.accounts)
+        self.tableView.reloadData()
+    }
+    
+    func fetchAccounts(group: DispatchGroup, userId: String) {
         group.enter()
-        fetchAccounts(forUserId: userId) { result in
+        accountsManager.fetchAccounts(forUserId: userId) { result in
             switch result {
             case .success(let accounts):
                 self.accounts = accounts
@@ -188,16 +206,18 @@ private extension AccountSummaryViewController {
             }
             group.leave()
         }
+    }
+    
+    func fetchData() {
+        let group = DispatchGroup()
+      
+        let userId = String(Int.random(in: 1..<4))
+        
+        self.fetchProfile(group: group, userId: userId)
+        self.fetchAccounts(group: group, userId: userId)
         
         group.notify(queue: .main) {
-            self.refreshControl.endRefreshing()
-            
-            guard let profile = self.profile else { return }
-            
-            self.isLoaded = true
-            self.configureTableHeaderView(with: profile)
-            self.configureTableCells(with: self.accounts)
-            self.tableView.reloadData()
+            self.reloadView()
         }
     }
     
@@ -226,5 +246,20 @@ extension AccountSummaryViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: SkeletonCell.reuseID, for: indexPath) as! SkeletonCell
         return cell
+    }
+}
+
+// MARK: For Unit Tests
+extension AccountSummaryViewController {
+    func titleAndMessageForTesting(for error: NetworkError) -> (String, String) {
+        titleAndMessage(error: error)
+    }
+    
+    func forceFetchProfile() {
+        fetchProfile(group: DispatchGroup(), userId: "1")
+    }
+    
+    func forceFetchAccounts() {
+        fetchAccounts(group: DispatchGroup(), userId: "1")
     }
 }
