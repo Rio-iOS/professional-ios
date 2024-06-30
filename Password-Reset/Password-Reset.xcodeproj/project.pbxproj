@@ -14,6 +14,7 @@
 		348ADA3C2C2FFEA30010A316 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 348ADA3B2C2FFEA30010A316 /* Base */; };
 		348ADA472C30036A0010A316 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA462C30036A0010A316 /* PasswordTextField.swift */; };
 		348ADA4A2C30E0900010A316 /* PasswordCriteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA492C30E0900010A316 /* PasswordCriteriaView.swift */; };
+		348ADA4C2C30EEF70010A316 /* PasswordStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		348ADA3D2C2FFEA30010A316 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		348ADA462C30036A0010A316 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		348ADA492C30E0900010A316 /* PasswordCriteriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteriaView.swift; sourceTree = "<group>"; };
+		348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				348ADA492C30E0900010A316 /* PasswordCriteriaView.swift */,
+				348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */,
 			);
 			name = PasswordStatusView;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				348ADA342C2FFEA10010A316 /* ViewController.swift in Sources */,
 				348ADA302C2FFEA10010A316 /* AppDelegate.swift in Sources */,
 				348ADA4A2C30E0900010A316 /* PasswordCriteriaView.swift in Sources */,
+				348ADA4C2C30EEF70010A316 /* PasswordStatusView.swift in Sources */,
 				348ADA472C30036A0010A316 /* PasswordTextField.swift in Sources */,
 				348ADA322C2FFEA10010A316 /* SceneDelegate.swift in Sources */,
 			);
