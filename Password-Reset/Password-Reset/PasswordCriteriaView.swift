@@ -17,7 +17,7 @@ class PasswordCriteriaView: UIView {
     private let xmarkImage = UIImage(systemName: "xmark.circle")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
     private let circleImage = UIImage(systemName: "circle")?.withTintColor(.tertiaryLabel, renderingMode: .alwaysOriginal)
    
-    private var isCriteriaMet: Bool = false {
+    var isCriteriaMet: Bool = false {
         didSet {
             if isCriteriaMet {
                 imageView.image = checkmarkImage
@@ -43,6 +43,11 @@ class PasswordCriteriaView: UIView {
     override var intrinsicContentSize: CGSize {
         CGSize(width: 200, height: 40)
     }
+    
+    func reset() {
+        isCriteriaMet = false
+        imageView.image = circleImage
+    }
 }
 
 private extension PasswordCriteriaView {
@@ -59,7 +64,6 @@ private extension PasswordCriteriaView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.textColor = .secondaryLabel
-        label.text = "uppercase letter (A-Z)"
     }
     
     func layout() {
@@ -84,10 +88,5 @@ private extension PasswordCriteriaView {
             
         ])
         label.setContentHuggingPriority(.defaultLow, for: .horizontal)
-    }
-    
-    func reset() {
-        isCriteriaMet = false
-        imageView.image = circleImage
     }
 }
