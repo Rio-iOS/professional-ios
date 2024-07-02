@@ -15,6 +15,7 @@
 		348ADA472C30036A0010A316 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA462C30036A0010A316 /* PasswordTextField.swift */; };
 		348ADA4A2C30E0900010A316 /* PasswordCriteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA492C30E0900010A316 /* PasswordCriteriaView.swift */; };
 		348ADA4C2C30EEF70010A316 /* PasswordStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */; };
+		348ADA6E2C312B3A0010A316 /* PasswordCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA6D2C312B3A0010A316 /* PasswordCriteria.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,8 @@
 		348ADA462C30036A0010A316 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		348ADA492C30E0900010A316 /* PasswordCriteriaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteriaView.swift; sourceTree = "<group>"; };
 		348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusView.swift; sourceTree = "<group>"; };
+		348ADA6D2C312B3A0010A316 /* PasswordCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteria.swift; sourceTree = "<group>"; };
+		348ADA702C3134F30010A316 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +63,7 @@
 		348ADA2E2C2FFEA10010A316 /* Password-Reset */ = {
 			isa = PBXGroup;
 			children = (
+				348ADA6F2C31347C0010A316 /* Playgrounds */,
 				348ADA482C30E0350010A316 /* PasswordStatusView */,
 				348ADA452C3003540010A316 /* Password */,
 				348ADA442C2FFF600010A316 /* Files */,
@@ -93,8 +97,17 @@
 			children = (
 				348ADA492C30E0900010A316 /* PasswordCriteriaView.swift */,
 				348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */,
+				348ADA6D2C312B3A0010A316 /* PasswordCriteria.swift */,
 			);
 			name = PasswordStatusView;
+			sourceTree = "<group>";
+		};
+		348ADA6F2C31347C0010A316 /* Playgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				348ADA702C3134F30010A316 /* MyPlayground.playground */,
+			);
+			name = Playgrounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +185,7 @@
 				348ADA4A2C30E0900010A316 /* PasswordCriteriaView.swift in Sources */,
 				348ADA4C2C30EEF70010A316 /* PasswordStatusView.swift in Sources */,
 				348ADA472C30036A0010A316 /* PasswordTextField.swift in Sources */,
+				348ADA6E2C312B3A0010A316 /* PasswordCriteria.swift in Sources */,
 				348ADA322C2FFEA10010A316 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

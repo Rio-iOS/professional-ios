@@ -9,17 +9,26 @@ import UIKit
 
 protocol PasswordTextFieldDelegate: AnyObject {
     func editingChanged(_ sender: PasswordTextField)
+    func editingDidEnd(_ sender: PasswordTextField)
 }
 
 class PasswordTextField: UIView {
+
+    typealias CustomValidation = (_ textValue: String?) -> (Bool, String)?
     
+    private let textField = UITextField()
     private let lockImageView = UIImageView(image: .init(systemName: "lock.fill"))
-    let textField = UITextField()
     private let placeholderText: String
     private let eyeButton = UIButton(type: .custom)
     private let divider = UIView()
     private let errorMessageLabel = UILabel()
+   
+    var text: String? {
+        get { textField.text }
+        set { textField.text = newValue }
+    }
     
+    var customValidation: CustomValidation?
     weak var delegate: PasswordTextFieldDelegate?
     
     init(placeholderText: String) {
@@ -120,6 +129,16 @@ private extension PasswordTextField {
             errorMessageLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
+    
+    func showError(_ errorMessage: String) {
+        errorMessageLabel.isHidden = false
+        errorMessageLabel.text = errorMessage
+    }
+    
+    func clearError() {
+        errorMessageLabel.isHidden = true
+        errorMessageLabel.text = ""
+    }
 }
 
 private extension PasswordTextField {
@@ -133,7 +152,27 @@ private extension PasswordTextField {
     }
 }
 
+extension PasswordTextField {
+    func validate() -> Bool {
+        if let customValidation = customValidation,
+           let customValidationResult = customValidation(text),
+           customValidationResult.0 == false {
+            showError(customValidationResult.1)
+            return false
+        }
+        clearError()
+        return true
+    }
+}
+
 // MARK: UITextFieldDelegate
 extension PasswordTextField: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.editingDidEnd(self)
+    }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return true
+    }
 }
