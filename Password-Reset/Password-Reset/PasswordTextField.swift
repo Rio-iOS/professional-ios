@@ -21,7 +21,7 @@ class PasswordTextField: UIView {
     private let placeholderText: String
     private let eyeButton = UIButton(type: .custom)
     private let divider = UIView()
-    private let errorMessageLabel = UILabel()
+    let errorMessageLabel = UILabel()
    
     var text: String? {
         get { textField.text }

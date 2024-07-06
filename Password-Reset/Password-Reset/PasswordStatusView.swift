@@ -10,13 +10,13 @@ import UIKit
 
 class PasswordStatusView: UIView {
     private let stackView = UIStackView()
-    private let lengthCriteriaView = PasswordCriteriaView(text: "8-32 characters (no spaces)")
     private let uppercaseCriteriaView = PasswordCriteriaView(text: "uppercase letter (A-Z)")
     private let lowercaseCriteriaView = PasswordCriteriaView(text: "lowercase (a-z)")
     private let digitCriteriaView = PasswordCriteriaView(text: "digit (0-9)")
     private let specialCharacterCriteriaView = PasswordCriteriaView(text: "special character (e.g. !@$%^)")
     private let label = UILabel()
 
+    let lengthCriteriaView = PasswordCriteriaView(text: "8-32 characters (no spaces)")
     var shouldResetCriteria = true
     
     override init(frame: CGRect) {
