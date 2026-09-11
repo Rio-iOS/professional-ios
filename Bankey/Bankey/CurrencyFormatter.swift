@@ -1,83 +1,54 @@
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
-/// 教材の残高表示に使用する、米国ロケールの通貨フォーマッター。
+/// 米ドルを小数点以下2桁、四捨五入（中間値は絶対値を大きくする方向）で表示します。
 struct CurrencyFormatter {
-    /// 金額を米国ロケールの通貨文字列へ変換します。
-    ///
-    /// 例: `929466`は`$929,466.00`になります。変換できない場合は空文字列を返します。
-    func dollarsFormatted(_ dollars: Double) -> String {
-        let formatter = NumberFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.numberStyle = .currency
-        formatter.usesGroupingSeparator = true
-        
-        if let result = formatter.string(from: dollars as NSNumber) {
-            return result
-        }
-        
-        return ""
-    }
-    
-    /// 金額の整数部分と小数部分を、表示用のドル文字列とセント文字列に分けます。
-    ///
-    /// 例: `929466.23`は`("929,466", "23")`になります。
-    /// `Double`に変換して処理する表示用の実装であり、金額計算には使用しません。
-    func breakIntoDollarsAndCents(_ amount: Decimal) -> (String, String) {
-        let tuple = modf(amount.doubleValue)
-        
-        let dollars = convertDollar(tuple.0)
-        let cents = convertCents(tuple.1)
-        
-        return (dollars, cents)
-    }
-    
-    /// ドル記号とセント部分を小さく上付きにした、残高表示用の文字列を作ります。
-    func makeAttributedCurrency(_ amount: Decimal) -> NSMutableAttributedString {
-        let tupple = breakIntoDollarsAndCents(amount)
-        return makeBalanceAttributed(dollars: tupple.0, cents: tupple.1)
-    }
-}
+    private let locale = Locale(identifier: "en_US")
 
-private extension CurrencyFormatter {
-    /// 整数部分を通貨表記に変換し、先頭の通貨記号と小数部分を取り除きます。
-    func convertDollar(_ dollartPart: Double) -> String {
-        let dollartsWithDecimal = dollarsFormatted(dollartPart) // 例: "$929,466.00"
+    func dollarsFormatted(_ amount: Decimal) -> String {
+        let parts = breakIntoDollarsAndCents(amount)
+        guard !parts.0.isEmpty else { return "" }
+        let isNegative = parts.0.hasPrefix("-")
+        let dollars = isNegative ? String(parts.0.dropFirst()) : parts.0
+        return "\(isNegative ? "-" : "")$\(dollars).\(parts.1)"
+    }
+
+    /// Decimalのまま丸め、符号を整数部分に付けて返します。負の1ドル未満は `-0` になります。
+    /// NaNは空の2要素を返します。
+    func breakIntoDollarsAndCents(_ amount: Decimal) -> (String, String) {
+        guard !amount.isNaN else { return ("", "") }
+        var source = amount
+        var rounded = Decimal()
+        NSDecimalRound(&rounded, &source, 2, .plain)
+        let isNegative = rounded < 0
+        let magnitude = isNegative ? -rounded : rounded
         let formatter = NumberFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        let decimalSeparator = formatter.decimalSeparator! // "."
-        let dollarComponents = dollartsWithDecimal.components(separatedBy: decimalSeparator) // "$929,466" "00"
-        var dollars = dollarComponents.first!
-        dollars.removeFirst() // "929,466"
-        
-        return dollars
+        formatter.locale = locale
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        formatter.roundingMode = .halfUp
+        formatter.usesGroupingSeparator = true
+        guard let text = formatter.string(from: NSDecimalNumber(decimal: magnitude)) else { return ("", "") }
+        let parts = text.split(separator: ".", omittingEmptySubsequences: false)
+        guard parts.count == 2 else { return ("", "") }
+        return ((isNegative ? "-" : "") + parts[0], String(parts[1]))
     }
-  
-    /// 小数部分を100倍して整数表記にします。0の場合は`00`を返します。
-    ///
-    /// 0以外の値は2桁へゼロ埋めしません。例: `0.05`は`5`になります。
-    func convertCents(_ centPart: Double) -> String {
-        let cents: String
-        if centPart == 0 {
-            cents = "00"
-        } else {
-            cents = String(format: "%.0f", centPart * 100)
-        }
-        
-        return cents
+
+#if canImport(UIKit)
+    /// 符号・ドル記号・セントを上付きにした表示文字列。VoiceOverには `dollarsFormatted(_:)` を使います。
+    func makeAttributedCurrency(_ amount: Decimal) -> NSAttributedString {
+        let parts = breakIntoDollarsAndCents(amount)
+        guard !parts.0.isEmpty else { return NSAttributedString(string: "") }
+        let isNegative = parts.0.hasPrefix("-")
+        let dollars = isNegative ? String(parts.0.dropFirst()) : parts.0
+        let small: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
+        let result = NSMutableAttributedString(string: isNegative ? "-$" : "$", attributes: small)
+        result.append(NSAttributedString(string: dollars, attributes: [.font: UIFont.preferredFont(forTextStyle: .title1)]))
+        result.append(NSAttributedString(string: parts.1, attributes: small))
+        return result
     }
-    
-    func makeBalanceAttributed(dollars: String, cents: String) -> NSMutableAttributedString {
-        let dollarSignAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
-        let dollarAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .title1)]
-        let centAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
-        let rootString = NSMutableAttributedString(string: "$", attributes: dollarSignAttributes)
-        let dollarString = NSAttributedString(string: dollars, attributes: dollarAttributes)
-        let centString = NSAttributedString(string: cents, attributes: centAttributes)
-        
-        rootString.append(dollarString)
-        rootString.append(centString)
-        
-        return rootString
-    }
+#endif
 }

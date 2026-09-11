@@ -4,6 +4,10 @@
 
 Bankeyの口座取得はFetchAccountSummaryUseCaseで集約し、AccountSummaryViewModelで表示状態を管理します。API結果はメインキューで集約します。AccountTypeはlowerCamelCaseにし、通信時のrawValueは維持します。Password-Resetの検証クロージャは画面をweakで参照し、Simulatorで解放を検証します。レイアウト単体教材はUIKitの構造を維持します。
 
+Bankeyの金額表示はDecimalのまま小数第2位へ四捨五入し、セントを2桁に揃えます。負数は-$0.05の形式で表示し、ゼロへ丸めた値には負号を付けません。セル内の重複した金額生成処理を削除し、読み上げにも整形済み金額を使います。
+
+既存の口座・ログインの振る舞いに加え、0.05、1.005、999.995、負数、ゼロ、NaNを検証します。
+
 ## 共通の設計基準
 
 - 型・メンバーは必要な範囲だけに公開します。内部状態は`private`、外部から読む状態は必要に応じて`private(set)`にします。プロトコルの要件、Storyboardの接続、サブクラスからの利用を確認して変更します。

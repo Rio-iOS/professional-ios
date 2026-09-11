@@ -7,14 +7,12 @@ final class AccountSummaryCell: UITableViewCell {
     struct ViewModel {
         let accountType: AccountType
         let accountName: String
-         let balance: Decimal
+        let balance: Decimal
 
         var balanceAsAttributedString: NSAttributedString {
             return CurrencyFormatter().makeAttributedCurrency(balance)
         }
     }
-
-    private let viewModel: ViewModel? = nil
 
     private let typeLabel = UILabel()
     private let underlineView = UIView()
@@ -38,12 +36,13 @@ final class AccountSummaryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with vm: ViewModel) {
-        typeLabel.text = vm.accountType.rawValue
-        nameLabel.text = vm.accountName
-        balanceAmountLabel.attributedText = vm.balanceAsAttributedString
+    func configure(with viewModel: ViewModel) {
+        typeLabel.text = viewModel.accountType.rawValue
+        nameLabel.text = viewModel.accountName
+        balanceAmountLabel.attributedText = viewModel.balanceAsAttributedString
+        balanceAmountLabel.accessibilityLabel = CurrencyFormatter().dollarsFormatted(viewModel.balance)
 
-        switch vm.accountType {
+        switch viewModel.accountType {
         case .banking:
             underlineView.backgroundColor = appColor
             balanceLabel.text = "Current balance"
@@ -87,7 +86,6 @@ private extension AccountSummaryCell {
 
         balanceAmountLabel.translatesAutoresizingMaskIntoConstraints = false
         balanceAmountLabel.textAlignment = .right
-        // balanceAmountLabel.attributedText = makeFormattedBalance(dollars: "929,466", centes: "23")
 
         balanceStackView.addArrangedSubview(balanceLabel)
         balanceStackView.addArrangedSubview(balanceAmountLabel)
@@ -133,18 +131,4 @@ private extension AccountSummaryCell {
         ])
     }
 
-    func makeFormattedBalance(dollars: String, centes: String) -> NSMutableAttributedString {
-        let dollarSignAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .callout), .baselineOffset: 8]
-        let dollarAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .title1)]
-        let centAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.preferredFont(forTextStyle: .footnote), .baselineOffset: 8]
-
-        let rootString = NSMutableAttributedString(string: "$", attributes: dollarSignAttributes)
-        let dollarString = NSAttributedString(string: dollars, attributes: dollarAttributes)
-        let centString = NSAttributedString(string: centes, attributes: centAttributes)
-
-        rootString.append(dollarString)
-        rootString.append(centString)
-
-        return rootString
-    }
 }

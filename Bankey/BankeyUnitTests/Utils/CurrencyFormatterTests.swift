@@ -1,38 +1,31 @@
 import Foundation
 import XCTest
-
+#if canImport(BankeyCore)
+@testable import BankeyCore
+#else
 @testable import Bankey
+#endif
 
 final class CurrencyFormatterTests: XCTestCase {
-    
-    var formatter: CurrencyFormatter!
-   
-    override func setUp() {
-        super.setUp()
-        formatter = CurrencyFormatter()
+    func testFractionDigitsRoundingCarryAndSign() throws {
+        let formatter = CurrencyFormatter()
+        let cases: [(String, String, String)] = [
+            ("0", "$0.00", "00"), ("0.05", "$0.05", "05"),
+            ("1.005", "$1.01", "01"), ("999.995", "$1,000.00", "00"),
+            ("-0.05", "-$0.05", "05"), ("-1.005", "-$1.01", "01"),
+            ("-929466.23", "-$929,466.23", "23"), ("-0.004", "$0.00", "00"),
+            ("929466.23", "$929,466.23", "23"),
+        ]
+        for (input, expected, cents) in cases {
+            let amount = try XCTUnwrap(Decimal(string: input, locale: Locale(identifier: "en_US_POSIX")))
+            XCTAssertEqual(formatter.dollarsFormatted(amount), expected, input)
+            XCTAssertEqual(formatter.breakIntoDollarsAndCents(amount).1, cents, input)
+        }
     }
 
-    func testBreakDollarsIntoCents() throws {
-        let result = formatter.breakIntoDollarsAndCents(929466.23)
-        XCTAssertEqual(result.0, "929,466")
-        XCTAssertEqual(result.1, "23")
-    }
-    
-    func testDollarsFormatted() throws {
-        let result = formatter.dollarsFormatted(929466.23)
-        XCTAssertEqual(result, "$929,466.23")
-    }
-    
-    func testZeroDollarsFormatted() throws {
-        let result = formatter.dollarsFormatted(0)
-        XCTAssertEqual(result, "$0.00")
-    }
-    
-    func testDollarsFormattedWithCurencySymbol() throws {
-        let locale = Locale.current
-        let currencySymbol = locale.currencySymbol
-        
-        let result = formatter.dollarsFormatted(929466.23)
-        XCTAssertNotEqual(result, "\(currencySymbol)929,466.23")
+    func testInvalidAmountDoesNotCrashOrProduceMisleadingZero() {
+        let formatter = CurrencyFormatter()
+        XCTAssertEqual(formatter.dollarsFormatted(.nan), "")
+        XCTAssertEqual(formatter.breakIntoDollarsAndCents(.nan).0, "")
     }
 }
