@@ -1,15 +1,11 @@
-//
-//  CurrencyFormatter.swift
-//  Bankey
-//
-//  Created by 藤門莉生 on 2024/06/19.
-//
-
 import Foundation
 import UIKit
 
+/// 教材の残高表示に使用する、米国ロケールの通貨フォーマッター。
 struct CurrencyFormatter {
-    /// Converts 929466 > $929,466.00
+    /// 金額を米国ロケールの通貨文字列へ変換します。
+    ///
+    /// 例: `929466`は`$929,466.00`になります。変換できない場合は空文字列を返します。
     func dollarsFormatted(_ dollars: Double) -> String {
         let formatter = NumberFormatter()
         formatter.locale = Locale(identifier: "en_US")
@@ -23,7 +19,10 @@ struct CurrencyFormatter {
         return ""
     }
     
-    /// Convers 929466.23 > "929,466" "23"
+    /// 金額の整数部分と小数部分を、表示用のドル文字列とセント文字列に分けます。
+    ///
+    /// 例: `929466.23`は`("929,466", "23")`になります。
+    /// `Double`に変換して処理する表示用の実装であり、金額計算には使用しません。
     func breakIntoDollarsAndCents(_ amount: Decimal) -> (String, String) {
         let tuple = modf(amount.doubleValue)
         
@@ -33,6 +32,7 @@ struct CurrencyFormatter {
         return (dollars, cents)
     }
     
+    /// ドル記号とセント部分を小さく上付きにした、残高表示用の文字列を作ります。
     func makeAttributedCurrency(_ amount: Decimal) -> NSMutableAttributedString {
         let tupple = breakIntoDollarsAndCents(amount)
         return makeBalanceAttributed(dollars: tupple.0, cents: tupple.1)
@@ -40,9 +40,9 @@ struct CurrencyFormatter {
 }
 
 private extension CurrencyFormatter {
-    /// Converts 929466 > 929,466
+    /// 整数部分を通貨表記に変換し、先頭の通貨記号と小数部分を取り除きます。
     func convertDollar(_ dollartPart: Double) -> String {
-        let dollartsWithDecimal = dollarsFormatted(dollartPart) // "929,466.00"
+        let dollartsWithDecimal = dollarsFormatted(dollartPart) // 例: "$929,466.00"
         let formatter = NumberFormatter()
         formatter.locale = Locale(identifier: "en_US")
         let decimalSeparator = formatter.decimalSeparator! // "."
@@ -53,7 +53,9 @@ private extension CurrencyFormatter {
         return dollars
     }
   
-    /// Converts 0.23 > 23
+    /// 小数部分を100倍して整数表記にします。0の場合は`00`を返します。
+    ///
+    /// 0以外の値は2桁へゼロ埋めしません。例: `0.05`は`5`になります。
     func convertCents(_ centPart: Double) -> String {
         let cents: String
         if centPart == 0 {

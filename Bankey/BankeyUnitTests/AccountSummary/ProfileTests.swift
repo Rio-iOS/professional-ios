@@ -1,10 +1,3 @@
-//
-//  ProfileTests.swift
-//  BankeyUnitTests
-//
-//  Created by 藤門莉生 on 2024/06/27.
-//
-
 import Foundation
 import XCTest
 

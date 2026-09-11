@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  NavigationControllerDemo
-//
-//  Created by 藤門莉生 on 2024/06/15.
-//
-
 import UIKit
 
 final class ViewController: UIViewController {

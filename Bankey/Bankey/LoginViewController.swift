@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  Bankey
-//
-//  Created by 藤門莉生 on 2024/06/14.
-//
-
 import UIKit
 
 protocol LogoutDelegate: AnyObject {
@@ -106,7 +99,7 @@ private extension LoginViewController {
         NSLayoutConstraint.activate([
             subTitleLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 1),
             // subTitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor), // Title Labelとleadingを揃える場合
-            // subTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1), // Veiwのleadingに合わせる場合
+            // subTitleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 1), // Viewのleadingに合わせる場合
             subTitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
         ])
 

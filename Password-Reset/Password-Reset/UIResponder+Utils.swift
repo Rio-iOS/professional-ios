@@ -1,10 +1,3 @@
-//
-//  UIResponder+Utils.swift
-//  Password-Reset
-//
-//  Created by 藤門莉生 on 2024/07/03.
-//
-
 import Foundation
 import UIKit
 

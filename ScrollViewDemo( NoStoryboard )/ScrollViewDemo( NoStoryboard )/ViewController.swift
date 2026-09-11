@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  ScrollViewDemo( NoStoryboard )
-//
-//  Created by 藤門莉生 on 2024/06/16.
-//
-
 import UIKit
 
 final class ViewController: UIViewController {
@@ -55,7 +48,7 @@ private extension ViewController {
         ])
 
         // stackViewのwidthの制約
-        // NOTE: 制約が無い場合、画面幅にに表示されない
+        // NOTE: 制約が無い場合、画面幅に表示されない
         stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
 

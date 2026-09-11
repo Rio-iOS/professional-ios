@@ -1,10 +1,3 @@
-//
-//  Date+Utils.swift
-//  Bankey
-//
-//  Created by 藤門莉生 on 2024/06/27.
-//
-
 import Foundation
 
 extension Date {

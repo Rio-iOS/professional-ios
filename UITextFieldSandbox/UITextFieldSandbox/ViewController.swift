@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  UITextFieldSandbox
-//
-//  Created by 藤門莉生 on 2024/06/30.
-//
-
 import UIKit
 
 final class ViewController: UIViewController {

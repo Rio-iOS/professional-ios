@@ -1,10 +1,3 @@
-//
-//  CurrencyFormatterTests.swift
-//  BankeyUnitTests
-//
-//  Created by 藤門莉生 on 2024/06/20.
-//
-
 import Foundation
 import XCTest
 
