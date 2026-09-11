@@ -1,0 +1,58 @@
+[
+  {
+    "kind": "app",
+    "name": "Bankey",
+    "scheme": "Bankey",
+    "project": "Bankey/Bankey.xcodeproj",
+    "workspace": null
+  },
+  {
+    "kind": "app",
+    "name": "NavigationControllerDemo",
+    "scheme": "NavigationControllerDemo",
+    "project": "NavigationControllerDemo/NavigationControllerDemo.xcodeproj",
+    "workspace": null
+  },
+  {
+    "kind": "app",
+    "name": "PageViewControllerDemo",
+    "scheme": "PageViewControllerDemo",
+    "project": "PageViewControllerDemo/PageViewControllerDemo.xcodeproj",
+    "workspace": null
+  },
+  {
+    "kind": "app",
+    "name": "Password-Reset",
+    "scheme": "Password-Reset",
+    "project": "Password-Reset/Password-Reset.xcodeproj",
+    "workspace": null
+  },
+  {
+    "kind": "app",
+    "name": "ScrollViewDemo( NoStoryboard )",
+    "scheme": "ScrollViewDemo( NoStoryboard )",
+    "project": "ScrollViewDemo( NoStoryboard )/ScrollViewDemo( NoStoryboard ).xcodeproj",
+    "workspace": null
+  },
+  {
+    "kind": "app",
+    "name": "ScrollViewDemo",
+    "scheme": "ScrollViewDemo",
+    "project": "ScrollViewDemo/ScrollViewDemo.xcodeproj",
+    "workspace": null
+  },
+  {
+    "kind": "app",
+    "name": "TabBarControllerDemo",
+    "scheme": "TabBarControllerDemo",
+    "project": "TabBarControllerDemo/TabBarControllerDemo.xcodeproj",
+    "workspace": null
+  },
+  {
+    "kind": "app",
+    "name": "UITextFieldSandbox",
+    "scheme": "UITextFieldSandbox",
+    "project": "UITextFieldSandbox/UITextFieldSandbox.xcodeproj",
+    "workspace": null
+  }
+]

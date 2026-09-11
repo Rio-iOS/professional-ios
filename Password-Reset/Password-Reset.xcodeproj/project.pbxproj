@@ -16,6 +16,7 @@
 		348ADA4A2C30E0900010A316 /* PasswordCriteriaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA492C30E0900010A316 /* PasswordCriteriaView.swift */; };
 		348ADA4C2C30EEF70010A316 /* PasswordStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */; };
 		348ADA6E2C312B3A0010A316 /* PasswordCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA6D2C312B3A0010A316 /* PasswordCriteria.swift */; };
+		645152CF5FDF6777F9F4FF3D /* UIResponder+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98129CB86B0FB23D17930B85 /* UIResponder+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusView.swift; sourceTree = "<group>"; };
 		348ADA6D2C312B3A0010A316 /* PasswordCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteria.swift; sourceTree = "<group>"; };
 		348ADA702C3134F30010A316 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		98129CB86B0FB23D17930B85 /* UIResponder+Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIResponder+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				348ADA2F2C2FFEA10010A316 /* AppDelegate.swift */,
 				348ADA312C2FFEA10010A316 /* SceneDelegate.swift */,
 				348ADA332C2FFEA10010A316 /* ViewController.swift */,
+				98129CB86B0FB23D17930B85 /* UIResponder+Utils.swift */,
 			);
 			path = "Password-Reset";
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				348ADA472C30036A0010A316 /* PasswordTextField.swift in Sources */,
 				348ADA6E2C312B3A0010A316 /* PasswordCriteria.swift in Sources */,
 				348ADA322C2FFEA10010A316 /* SceneDelegate.swift in Sources */,
+				645152CF5FDF6777F9F4FF3D /* UIResponder+Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
