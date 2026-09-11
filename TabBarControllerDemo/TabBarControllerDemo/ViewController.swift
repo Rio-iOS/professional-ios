@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +17,7 @@ class ViewController: UIViewController {
 
 }
 
-class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Search"
@@ -25,7 +25,7 @@ class SearchViewController: UIViewController {
     }
 }
 
-class ContactsViewController: UIViewController {
+final class ContactsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Contacts"
@@ -33,7 +33,7 @@ class ContactsViewController: UIViewController {
     }
 }
 
-class FavoritesViewController: UIViewController {
+final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Favorites"

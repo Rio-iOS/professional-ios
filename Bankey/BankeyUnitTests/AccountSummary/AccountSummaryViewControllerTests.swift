@@ -1,119 +1,98 @@
-//
-//  AccountSummaryViewControllerTests.swift
-//  BankeyUnitTests
-//
-//  Created by 藤門莉生 on 2024/06/29.
-//
-
 import XCTest
+#if canImport(BankeyCore)
+@testable import BankeyCore
+#else
 @testable import Bankey
+#endif
 
-final class AccountSummaryViewControllerTests: XCTestCase {
-    private var vc: AccountSummaryViewController!
-    private var mockProfileManager: MockProfileManager!
-    private var mockAccountsManager: MockAccountsManager!
-
-    class MockProfileManager: ProfileManagable {
-        var profile: Profile?
-        var error: NetworkError?
-        
-        func fetchProfile(forUserId userId: String, completion: @escaping (Result<Profile, NetworkError>) -> Void) {
-            if error != nil {
-                completion(.failure(error!))
-                return
-            }
-            
-            profile = Profile(
-                id: "1",
-                firstName: "FirstName",
-                lastName: "LastName"
-            )
-            completion(.success(profile!))
-        }
-    }
-    
-    class MockAccountsManager: AccountsManagable {
-        var accounts: [Account]?
-        var error: NetworkError?
-        func fetchAccounts(forUserId userId: String, completion: @escaping (Result<[Account], NetworkError>) -> Void) {
-            if error != nil {
-                completion(.failure(error!))
-                return
-            }
-            
-            completion(
-                .success(
-                    [
-                        Account(
-                            id: "1",
-                            type: .Banking,
-                            name: "name",
-                            amount: 100.0,
-                            createdDateTime: Date()
-                        )
-                    ]
-                )
-            )
-        }
-    }
-    
-    override func setUp() {
-        super.setUp()
-        vc = AccountSummaryViewController()
-        
-        mockProfileManager = MockProfileManager()
-        vc.profileManager = mockProfileManager
-        
-        mockAccountsManager = MockAccountsManager()
-        vc.accountsManager = mockAccountsManager
+final class AccountSummaryViewModelTests: XCTestCase {
+    func testErrorMessages() {
+        XCTAssertEqual(AccountSummaryViewModel.errorMessage(for: .serverError).title, "Server Error")
+        XCTAssertEqual(AccountSummaryViewModel.errorMessage(for: .decodingError).title, "Decoding Error")
     }
 
-    func testTitleAndMessageForServerError() {
-        let (title, message) = vc.titleAndMessageForTesting(for: .serverError)
-        XCTAssertEqual(title, "Server Error")
-        XCTAssertEqual(message, "Ensure you are connected to the internet. Please try again.")
-    }
-    
-    func testTitleAndMessageForDecodingError() {
-        let (title, message) = vc.titleAndMessageForTesting(for: .decodingError)
-        XCTAssertEqual(title, "Decoding Error")
-        XCTAssertEqual(message, "We could not process your request, Please try again.")
-    }
-    
-    func testAlertForServerError() {
-        let expectation = XCTestExpectation(description: "Wait for alert to be presented")
-        
-        mockProfileManager.error = .serverError
-        
-        DispatchQueue.main.async {
-            self.vc.forceFetchProfile()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                XCTAssertEqual("Server Error", self.vc.errorAlert.title!)
-                XCTAssertEqual("Ensure you are connected to the internet. Please try again.", self.vc.errorAlert.message!)
-                expectation.fulfill()
-            }
+    func testSummaryWaitsForBothRequestsAndCompletesOnMainThread() {
+        let profiles = ProfileStub()
+        let accounts = AccountsStub()
+        let useCase = FetchAccountSummaryUseCase(profiles: profiles, accounts: accounts)
+        let finished = expectation(description: "Both results received")
+        useCase.execute(userID: "42") { result in
+            XCTAssertTrue(Thread.isMainThread)
+            guard case .success(let summary) = result else { return XCTFail() }
+            XCTAssertEqual(summary.profile.id, "42")
+            XCTAssertEqual(summary.accounts.count, 0)
+            finished.fulfill()
         }
-        
-        wait(for: [expectation], timeout: 1.0)
+        XCTAssertEqual(profiles.requestedUserID, "42")
+        XCTAssertEqual(accounts.requestedUserID, "42")
+        accounts.completion?(.success([]))
+        profiles.completion?(.success(Profile(id: "42", firstName: "Rio", lastName: "Sample")))
+        wait(for: [finished], timeout: 2)
     }
-    
-    func testAlertForDecodingError() {
-        let expectation = XCTestExpectation(description: "Wait for alert to be presented")
-       
-        mockAccountsManager.error = .decodingError
-       
-        DispatchQueue.main.async {
-            self.vc.forceFetchAccounts()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                XCTAssertEqual("Decoding Error", self.vc.errorAlert.title!)
-                XCTAssertEqual("We could not process your request, Please try again.", self.vc.errorAlert.message!)
-                expectation.fulfill()
-            }
+
+    func testFailureIsForwardedAndRetryIsAllowed() {
+        let profiles = ProfileStub()
+        let accounts = AccountsStub()
+        let viewModel = AccountSummaryViewModel(fetchSummary: FetchAccountSummaryUseCase(profiles: profiles, accounts: accounts))
+        let failed = expectation(description: "Failure presented")
+        viewModel.onStateChange = { state in
+            if case .failed(.decodingError) = state { failed.fulfill() }
         }
-        
-        wait(for: [expectation], timeout: 1.0)
+        viewModel.load(userID: "1")
+        profiles.completion?(.failure(.decodingError))
+        accounts.completion?(.success([]))
+        wait(for: [failed], timeout: 2)
+        viewModel.load(userID: "1")
+        XCTAssertEqual(profiles.requestCount, 2)
     }
-    
+
+    func testDuplicateLoadDoesNotStartMoreRequests() {
+        let profiles = ProfileStub()
+        let accounts = AccountsStub()
+        let viewModel = AccountSummaryViewModel(fetchSummary: FetchAccountSummaryUseCase(profiles: profiles, accounts: accounts))
+        viewModel.load(userID: "1")
+        viewModel.load(userID: "1")
+        XCTAssertEqual(profiles.requestCount, 1)
+        XCTAssertEqual(accounts.requestCount, 1)
+    }
+
+    func testPendingRequestsDoNotRetainViewModel() {
+        let profiles = ProfileStub()
+        let accounts = AccountsStub()
+        var viewModel: AccountSummaryViewModel? = AccountSummaryViewModel(fetchSummary: FetchAccountSummaryUseCase(profiles: profiles, accounts: accounts))
+        weak var reference = viewModel
+        viewModel?.load(userID: "1")
+        viewModel = nil
+        XCTAssertNil(reference)
+        profiles.completion?(.failure(.serverError))
+        accounts.completion?(.success([]))
+    }
+
+    func testAccountTypeKeepsServiceWireValues() throws {
+        let type = try JSONDecoder().decode(AccountType.self, from: Data("\"CreditCard\"".utf8))
+        XCTAssertEqual(type, .creditCard)
+        XCTAssertEqual(String(decoding: try JSONEncoder().encode(type), as: UTF8.self), "\"CreditCard\"")
+    }
+}
+
+private final class ProfileStub: ProfileRepository {
+    private(set) var requestedUserID: String?
+    private(set) var requestCount = 0
+    var completion: ((Result<Profile, NetworkError>) -> Void)?
+    func fetchProfile(forUserID userID: String, completion: @escaping (Result<Profile, NetworkError>) -> Void) {
+        requestedUserID = userID
+        requestCount += 1
+        self.completion = completion
+    }
+}
+
+private final class AccountsStub: AccountsRepository {
+    private(set) var requestedUserID: String?
+    private(set) var requestCount = 0
+    var completion: ((Result<[Account], NetworkError>) -> Void)?
+    func fetchAccounts(forUserID userID: String, completion: @escaping (Result<[Account], NetworkError>) -> Void) {
+        requestedUserID = userID
+        requestCount += 1
+        self.completion = completion
+    }
 }

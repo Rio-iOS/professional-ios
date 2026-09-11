@@ -12,7 +12,7 @@ final class AccountTests: XCTestCase {
     override func setUp() {
         super.setUp()
     }
-    
+
     func testCanParse() {
         let json = """
             [
@@ -33,20 +33,20 @@ final class AccountTests: XCTestCase {
             ]
         """
         let data = json.data(using: .utf8)!
-        
+
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        
+
         let accounts = try! decoder.decode([Account].self, from: data)
-        
+
         XCTAssertEqual(accounts[0].id, "1")
-        XCTAssertEqual(accounts[0].type, .Banking)
+        XCTAssertEqual(accounts[0].type, .banking)
         XCTAssertEqual(accounts[0].name, "Basic Savings")
         XCTAssertEqual(accounts[0].amount, 929466.23)
         XCTAssertEqual(accounts[0].createdDateTime.monthDayYearString, "Jun 21, 2010")
-        
+
         XCTAssertEqual(accounts[1].id, "2")
-        XCTAssertEqual(accounts[1].type, .Banking)
+        XCTAssertEqual(accounts[1].type, .banking)
         XCTAssertEqual(accounts[1].name, "No-Fee All-In Chequing")
         XCTAssertEqual(accounts[1].amount, 17562.44)
         XCTAssertEqual(accounts[1].createdDateTime.monthDayYearString, "Jun 21, 2011")

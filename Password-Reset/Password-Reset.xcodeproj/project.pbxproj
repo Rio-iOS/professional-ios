@@ -17,9 +17,23 @@
 		348ADA4C2C30EEF70010A316 /* PasswordStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */; };
 		348ADA6E2C312B3A0010A316 /* PasswordCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA6D2C312B3A0010A316 /* PasswordCriteria.swift */; };
 		645152CF5FDF6777F9F4FF3D /* UIResponder+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98129CB86B0FB23D17930B85 /* UIResponder+Utils.swift */; };
+		C5D5211DFDD9B56A8276E478 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8FAA4FE93E094BEE872B03 /* ViewControllerTests.swift */; };
+		FA2238AF3CC21579E4457C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B1FB3D668E066729C799E7 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		32856D6DFF6763169E894282 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 348ADA242C2FFEA10010A316 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 348ADA2B2C2FFEA10010A316;
+			remoteInfo = "Password-Reset";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		1A923BED7068DDA73429EB8B /* PasswordTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PasswordTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		25B1FB3D668E066729C799E7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		348ADA2C2C2FFEA10010A316 /* Password-Reset.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Password-Reset.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		348ADA2F2C2FFEA10010A316 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		348ADA312C2FFEA10010A316 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +46,7 @@
 		348ADA4B2C30EEF60010A316 /* PasswordStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordStatusView.swift; sourceTree = "<group>"; };
 		348ADA6D2C312B3A0010A316 /* PasswordCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordCriteria.swift; sourceTree = "<group>"; };
 		348ADA702C3134F30010A316 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		7D8FAA4FE93E094BEE872B03 /* ViewControllerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		98129CB86B0FB23D17930B85 /* UIResponder+Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIResponder+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -43,6 +58,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B4B8CE4B28616484A13AA21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA2238AF3CC21579E4457C0F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -51,6 +74,8 @@
 			children = (
 				348ADA2E2C2FFEA10010A316 /* Password-Reset */,
 				348ADA2D2C2FFEA10010A316 /* Products */,
+				399F7B3AB1F110DED3D6966E /* Frameworks */,
+				9B154447574F094442791394 /* PasswordTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				348ADA2C2C2FFEA10010A316 /* Password-Reset.app */,
+				1A923BED7068DDA73429EB8B /* PasswordTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,9 +139,52 @@
 			name = Playgrounds;
 			sourceTree = "<group>";
 		};
+		399F7B3AB1F110DED3D6966E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52A586C84697273C11F17FC1 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		52A586C84697273C11F17FC1 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				25B1FB3D668E066729C799E7 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		9B154447574F094442791394 /* PasswordTests */ = {
+			isa = PBXGroup;
+			children = (
+				7D8FAA4FE93E094BEE872B03 /* ViewControllerTests.swift */,
+			);
+			name = PasswordTests;
+			path = PasswordTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1D0BF7F59C8378A9BC91A776 /* PasswordTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3BBFC3B202B15240668734E /* Build configuration list for PBXNativeTarget "PasswordTests" */;
+			buildPhases = (
+				7441AC30D477A847A2CB5702 /* Sources */,
+				8B4B8CE4B28616484A13AA21 /* Frameworks */,
+				5AD68FAB044FC28FA8D6AB55 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2F4752ADB70CB3152357775B /* PBXTargetDependency */,
+			);
+			name = PasswordTests;
+			productName = PasswordTests;
+			productReference = 1A923BED7068DDA73429EB8B /* PasswordTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		348ADA2B2C2FFEA10010A316 /* Password-Reset */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 348ADA402C2FFEA30010A316 /* Build configuration list for PBXNativeTarget "Password-Reset" */;
@@ -162,6 +231,7 @@
 			projectRoot = "";
 			targets = (
 				348ADA2B2C2FFEA10010A316 /* Password-Reset */,
+				1D0BF7F59C8378A9BC91A776 /* PasswordTests */,
 			);
 		};
 /* End PBXProject section */
@@ -173,6 +243,13 @@
 			files = (
 				348ADA392C2FFEA30010A316 /* Assets.xcassets in Resources */,
 				348ADA3C2C2FFEA30010A316 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5AD68FAB044FC28FA8D6AB55 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +271,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7441AC30D477A847A2CB5702 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5D5211DFDD9B56A8276E478 /* ViewControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2F4752ADB70CB3152357775B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Password-Reset";
+			target = 348ADA2B2C2FFEA10010A316 /* Password-Reset */;
+			targetProxy = 32856D6DFF6763169E894282 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		348ADA3A2C2FFEA30010A316 /* LaunchScreen.storyboard */ = {
@@ -381,6 +475,38 @@
 			};
 			name = Release;
 		};
+		46D4F4E7CAD8D6C364D5051C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rio.samples.PasswordTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Password-Reset.app/Password-Reset";
+			};
+			name = Debug;
+		};
+		F58C5F39AF9ADB70C58E3CEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rio.samples.PasswordTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Password-Reset.app/Password-Reset";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -398,6 +524,15 @@
 			buildConfigurations = (
 				348ADA412C2FFEA30010A316 /* Debug */,
 				348ADA422C2FFEA30010A316 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3BBFC3B202B15240668734E /* Build configuration list for PBXNativeTarget "PasswordTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F58C5F39AF9ADB70C58E3CEB /* Release */,
+				46D4F4E7CAD8D6C364D5051C /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

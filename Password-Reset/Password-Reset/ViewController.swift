@@ -7,17 +7,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     typealias CustomValidation = PasswordTextField.CustomValidation
-    
+
     private let stackView = UIStackView()
     private let statusView = PasswordStatusView()
     private let resetButton = UIButton(type: .system)
-    
+
     let newPasswordTextField = PasswordTextField(placeholderText: "New password")
     let confirmPasswordTextField = PasswordTextField(placeholderText: "Re-enter new password")
     var alert: UIAlertController?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -33,70 +33,72 @@ private extension ViewController {
         setupConfirmPassword()
         setupDismissKeyboardGesture()
     }
-    
+
     func setupNewPassword() {
-        let newPasswordValidation: CustomValidation = { text in
+        let newPasswordValidation: CustomValidation = { [weak self] text in
+            guard let self = self else { return nil }
             // Empty text
             guard let text, !text.isEmpty else {
                 self.statusView.reset()
                 return (false, "Enter your password")
             }
-            
+
             // Valid characters
             let validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,@:?!()$\\/#"
             let invalidSet = CharacterSet(charactersIn: validChars).inverted
             guard text.rangeOfCharacter(from: invalidSet) == nil else {
                 return (false, "Enter valid special chars （.,@:?!()$\\/#）with no spaces")
             }
-            
+
             // Criteria met
             self.statusView.updateDisplay(text)
             if !self.statusView.validate(text) {
                 return (false, "Your password must meet the requirements below")
             }
-            
+
             return (true, "")
         }
-        
+
         newPasswordTextField.customValidation = newPasswordValidation
     }
-    
+
     func setupConfirmPassword() {
-        let confirmPasswordValidation: CustomValidation = { text in
+        let confirmPasswordValidation: CustomValidation = { [weak self] text in
+            guard let self = self else { return nil }
             guard let text, !text.isEmpty else {
                 return (false, "Enter your password")
             }
-            
+
             guard text == self.newPasswordTextField.text else {
                 return (false, "Password do not match")
             }
-            
+
             return (true, "")
         }
-        
+
         confirmPasswordTextField.customValidation = confirmPasswordValidation
         confirmPasswordTextField.delegate = self
     }
-    
+
     func style() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 20
-        
+
         newPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
         newPasswordTextField.delegate = self
         confirmPasswordTextField.translatesAutoresizingMaskIntoConstraints = false
-        
+
         statusView.translatesAutoresizingMaskIntoConstraints = false
         statusView.layer.cornerRadius = 5
         statusView.clipsToBounds = true
-        
+
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.configuration = .filled()
         resetButton.setTitle("Reset password", for: [])
         resetButton.addTarget(self, action: #selector(resetPasswordButtonTapped), for: .primaryActionTriggered)
     }
-    
+
     func layout() {
         stackView.addArrangedSubview(newPasswordTextField)
         stackView.addArrangedSubview(statusView)
@@ -104,24 +106,24 @@ private extension ViewController {
         stackView.addArrangedSubview(resetButton)
 
         view.addSubview(stackView)
-        
+
         NSLayoutConstraint.activate([
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: stackView.trailingAnchor, multiplier: 2),
         ])
     }
-    
+
     func setupDismissKeyboardGesture() {
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
         view.addGestureRecognizer(dismissKeyboardTap)
     }
-    
+
     func setupKeyboardHiding() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+
     func showAlert(title: String, message: String) {
         alert = UIAlertController(title: "", message: "", preferredStyle: .alert)
         guard let alert else { return }
@@ -136,7 +138,7 @@ private extension ViewController {
     @objc func viewTapped(_ recognizer: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    
+
     @objc func keyboardWillShow(sender: NSNotification) {
         // view.frame.origin.y = view.frame.origin.y - 200
         guard
@@ -146,7 +148,7 @@ private extension ViewController {
         else {
             return
         }
-        
+
         print("✅userInfo: \(userInfo)")
         print("✅keyboardFrame: \(keyboardFrame)")
         print("✅currentTextField: \(currentTextField)")
@@ -166,9 +168,9 @@ private extension ViewController {
             let newFrameY = (textBoxY - keyboardTopY) * -1
             view.frame.origin.y = newFrameY
         }
-        
+
     }
-    
+
     @objc func keyboardWillHide(notification: NSNotification) {
         view.frame.origin.y = 0
     }
@@ -177,10 +179,10 @@ private extension ViewController {
 extension ViewController {
     @objc func resetPasswordButtonTapped(sender: UIButton) {
         view.endEditing(true)
-        
+
         let isValidNewPassword = newPasswordTextField.validate()
         let isValidConfirmPassword = confirmPasswordTextField.validate()
-        
+
         if isValidNewPassword && isValidConfirmPassword {
             showAlert(title: "Success", message: "You have successfully changed your password.")
         }
@@ -193,7 +195,7 @@ extension ViewController: PasswordTextFieldDelegate {
             statusView.updateDisplay(sender.text ?? "")
         }
     }
-    
+
     func editingDidEnd(_ sender: PasswordTextField) {
         if sender === newPasswordTextField {
             statusView.shouldResetCriteria = false
@@ -210,7 +212,7 @@ extension ViewController {
         get { newPasswordTextField.text }
         set { newPasswordTextField.text = newValue }
     }
-    
+
     var confirmPasswordText: String? {
         get { confirmPasswordTextField.text }
         set { confirmPasswordTextField.text = newValue }

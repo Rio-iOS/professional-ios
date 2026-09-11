@@ -54,5 +54,10 @@
     "scheme": "UITextFieldSandbox",
     "project": "UITextFieldSandbox/UITextFieldSandbox.xcodeproj",
     "workspace": null
+  },
+  {
+    "kind": "package",
+    "name": "BankeyCore",
+    "path": "Bankey"
   }
 ]

@@ -32,9 +32,16 @@ swift Scripts/verify.swift --index 0
 | 5 | `ScrollViewDemo` | Simulatorビルド | `ScrollViewDemo/ScrollViewDemo.xcodeproj` |
 | 6 | `TabBarControllerDemo` | Simulatorビルド | `TabBarControllerDemo/TabBarControllerDemo.xcodeproj` |
 | 7 | `UITextFieldSandbox` | Simulatorビルド | `UITextFieldSandbox/UITextFieldSandbox.xcodeproj` |
+| 8 | `BankeyCore` | Swift回帰テスト | `Bankey/Package.swift` |
 
 アプリを操作するには表のworkspace（ある場合）またはprojectをXcodeで開き、対象のschemeとiPhone Simulatorを選択して実行します。実機で動かす場合は、ご自身のSigning Teamを設定してください。
 
 ## CIと検証範囲
 
 `Quality` ワークフローは上記と同じ一覧・スクリプトを使い、対象ごとにビルドまたはテストを実行します。ビルドの成功だけでは、画面表示、アクセシビリティ、通信先の動作、テスト網羅性は保証されません。UIサンプルはSimulator上での操作確認も必要です。
+
+## Swiftコード品質
+
+[設計・命名・所有関係の方針と、この教材への適用範囲](SWIFT-QUALITY.md)を参照してください。
+
+パスワード画面の入力検証と解放テストは `swift Scripts/test-password.swift` でSimulator上でも実行します。

@@ -37,6 +37,7 @@
 		348ADA1D2C2FAE640010A316 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA1C2C2FAE640010A316 /* ProfileManager.swift */; };
 		348ADA202C2FB1490010A316 /* AccountsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA1F2C2FB1490010A316 /* AccountsManager.swift */; };
 		348ADA222C2FB3170010A316 /* AccountSummaryViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348ADA212C2FB3170010A316 /* AccountSummaryViewControllerTests.swift */; };
+		BB7F74A9DC4937A37024B5B2 /* AccountSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBF36E2D7A9075B145DF4B5 /* AccountSummaryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		348ADA1C2C2FAE640010A316 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
 		348ADA1F2C2FB1490010A316 /* AccountsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsManager.swift; sourceTree = "<group>"; };
 		348ADA212C2FB3170010A316 /* AccountSummaryViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewControllerTests.swift; sourceTree = "<group>"; };
+		CBBF36E2D7A9075B145DF4B5 /* AccountSummaryViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				348AD9352C1D7A190010A316 /* Onboarding */,
 				348ADA062C2A291F0010A316 /* Components */,
 				348ADA092C2A3EAA0010A316 /* Playgrounds */,
+				CBBF36E2D7A9075B145DF4B5 /* AccountSummaryViewModel.swift */,
 			);
 			path = Bankey;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				348AD9A22C1DFAB30010A316 /* MainViewController.swift in Sources */,
 				348ADA0D2C2CBDEB0010A316 /* Date+Utils.swift in Sources */,
 				348ADA202C2FB1490010A316 /* AccountsManager.swift in Sources */,
+				BB7F74A9DC4937A37024B5B2 /* AccountSummaryViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
